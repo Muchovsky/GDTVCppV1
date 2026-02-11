@@ -1,20 +1,63 @@
 #include <iostream>
+# include <ctime>
+
+void PrintIntroduction(int Difficulty)
+{
+    std::cout << "You are a secret agent braking into a level " << Difficulty << " secure server room" << '\n';
+    std::cout << "You need to enter the correct codes to continue ... " << '\n';
+}
+
+bool PlayGame(int Difficulty)
+{
+    PrintIntroduction(Difficulty);
+
+    int modDiff = Difficulty + Difficulty;
+    const int CodeA = rand() %  Difficulty + Difficulty;
+    const int CodeB = rand() %  Difficulty + Difficulty;
+    const int CodeC = rand() %  Difficulty + Difficulty;
+
+    const int CodeSum = CodeA + CodeB + CodeC;
+    const int CodeProduct = CodeA * CodeB * CodeC;
+    std::cout << " + There are 3 numbers in code" << '\n';
+    std::cout << " + Code sum is: " << CodeSum << '\n';
+    std::cout << " + Code multiplication is: " << CodeProduct << '\n';
+    int GuessA, GuessB, GuessC, GuessSum, GuessProduct;
+
+    std::cout << "Enter 3 numbers  " << '\n';
+    std::cin >> GuessA >> GuessB >> GuessC;
+    GuessSum = GuessA + GuessB + GuessC;
+    GuessProduct = GuessA * GuessB * GuessC;
+
+    if (GuessSum == CodeSum && GuessProduct == CodeProduct)
+    {
+        std::cout << "You entered the correct code!" << '\n';
+        return true;
+    }
+
+    std::cout << "You entered an invalid code! Try Again!" << '\n';
+    return false;
+}
 
 int main()
 {
-    std::cout << "You are a secret agent braking into a secure server room" << '\n';
-    std::cout << "You need to enter the correct codes to continue ... " << '\n';
+    srand(time(NULL));
+    int LevelDifficulty = 1;
+    const int MaxDifficulty = 10;
 
-    const int a = 123;
-    const int b = 23;
-    const int c = 3;
+    while (LevelDifficulty <= MaxDifficulty)
+    {
+        bool bLevelComplete = PlayGame(LevelDifficulty);
 
+        std::cin.clear();
+        std::cin.ignore();
 
-    const int sum = a + b + c;
-    const int product = a * b * c;
+        if (bLevelComplete)
+        {
+            LevelDifficulty++;
+        }
+    }
 
-    std::cout << sum << '\n';
-    std::cout << product << '\n';
+    std::cout << "You win the game!" << '\n';
 
     return 0;
 }
