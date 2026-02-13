@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BullCowCartridge.h"
-#include "HiddenWordList.h"
+//#include "HiddenWordList.h"
 // #include "Math/UnrealMathUtility.h"
 
 void UBullCowCartridge::BeginPlay() // When the game starts
@@ -12,7 +12,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     //SetupGame();  
 }
 
-void UBullCowCartridge::OnInput(const FString& PlayerInput) // When the player hits enter
+void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
 { 
     //if (bGameOver)
     //{
