@@ -20,37 +20,8 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
 		SetupGame();
 	}
 	else {
-		if (Input == HiddenWord)
-		{
-			PrintLine(TEXT("Right"));
-			EndGame();
-		}
-		else
-		{
-			if ((Input.Len() != HiddenWord.Len()))
-			{
-
-				PrintLine(TEXT("word length is %i"), HiddenWord.Len());
-				return;
-			}
-			PrintLine(TEXT("Wrong"));
-			EndGame();
-		}
+		ProcessGuess(Input);
 	}
-
-
-	//check length
-	//check if isogram
-	//change input to all lowercase 
-	//compare words
-
-	//substract live
-
-	//check lives count >0
-	//if >0 guess again show life left// end game  show word
-
-	//play again?
-
 }
 
 void UBullCowCartridge::ShowWelcomeMessage()
@@ -59,6 +30,7 @@ void UBullCowCartridge::ShowWelcomeMessage()
 	PrintLine(TEXT("Hello!"));
 	PrintLine(TEXT("Press Tab to start writing"));
 	PrintLine(TEXT("Guess the %i letter word"), HiddenWord.Len());
+	PrintLine(TEXT("You have %i lives"), Lives);
 	PrintLine(TEXT("Write your guess and press enter"));
 }
 
@@ -66,16 +38,52 @@ void UBullCowCartridge::SetupGame()
 {
 	bGameOver = false;
 	HiddenWord = TEXT("dupa");
-	Lives = 5;
+	Lives = HiddenWord.Len();
 
 	ShowWelcomeMessage();
 }
 
-void UBullCowCartridge::EndGame()
+void UBullCowCartridge::EndGame(bool bResult)
 {
 	bGameOver = true;
-
-
+	ClearScreen();
+	if (!bResult)
+	{
+		PrintLine(TEXT("You don't have lives, you lost"));
+		PrintLine(TEXT("Answear was: %s"), *HiddenWord);
+	}
 	PrintLine(TEXT("Press Enter to restart"));
+}
 
+void UBullCowCartridge::ProcessGuess(FString Guess)
+{
+	if (Guess == HiddenWord)
+	{
+		PrintLine(TEXT("You Have won"));
+		EndGame(true);
+		return;
+	}
+
+	if ((Guess.Len() != HiddenWord.Len()))
+	{
+
+		PrintLine(TEXT("word length is %i, try again "), HiddenWord.Len());
+		return;
+	}
+
+	//if (!IsIsogram)
+	//{
+	//	PrintLine(TEXT("No repeating letters, try again"));
+	//	return;
+	//}
+
+	PrintLine(TEXT("Wrong, lost live, you have %i "), --Lives);
+
+	if (Lives <= 0)
+	{
+		EndGame(false);
+		return;
+	}
+
+	//Show bulls and cows
 }
