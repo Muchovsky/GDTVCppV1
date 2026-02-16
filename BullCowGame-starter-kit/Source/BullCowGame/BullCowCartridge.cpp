@@ -6,8 +6,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
 {
 	Super::BeginPlay();
 	ShowWelcomeMessage();
-	HiddenWord = TEXT("dupa");
-
+	InitGame();
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
@@ -24,6 +23,17 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
 		PrintLine(TEXT("Wrong"));
 	}
 
+	//check length
+	//check if isogram
+	//change input to all lowercase 
+	//compare words
+
+	//substract live
+
+	//check lives count >0
+	//if >0 guess again show life left// end game  show word
+
+	//play again?
 
 }
 
@@ -34,4 +44,10 @@ void UBullCowCartridge::ShowWelcomeMessage()
 	PrintLine(TEXT("Press Tab to start writing"));
 	PrintLine(TEXT("Guess the 4 letter word")); //TODO magic number
 	PrintLine(TEXT("Write your guess and press enter"));
+}
+
+void UBullCowCartridge::InitGame()
+{
+	HiddenWord = TEXT("dupa");
+	Lives = 5;
 }

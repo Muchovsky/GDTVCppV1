@@ -17,9 +17,12 @@ public:
 	virtual void BeginPlay() override;
 	virtual void OnInput(const FString& Input) override;
 	void ShowWelcomeMessage();
+	void InitGame();
 
 	// Your declarations go below!
 private:
 	FString HiddenWord;
+	int32 Lives;
+
 
 };
