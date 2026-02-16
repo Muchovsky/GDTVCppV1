@@ -5,23 +5,39 @@
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
 	Super::BeginPlay();
-	ShowWelcomeMessage();
-	InitGame();
+
+	SetupGame();
+	//	PrintLine(FString::Printf(TEXT("CHEAT the word is %s and it is %i characters long"), *HiddenWord, HiddenWord.Len()));
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
 {
-	ClearScreen();
+	//ClearScreen();
 
+	if (bGameOver)
+	{
+		ClearScreen();
+		SetupGame();
+	}
+	else {
+		if (Input == HiddenWord)
+		{
+			PrintLine(TEXT("Right"));
+			EndGame();
+		}
+		else
+		{
+			if ((Input.Len() != HiddenWord.Len()))
+			{
 
-	if (Input == HiddenWord)
-	{
-		PrintLine(TEXT("Right"));
+				PrintLine(TEXT("word length is %i"), HiddenWord.Len());
+				return;
+			}
+			PrintLine(TEXT("Wrong"));
+			EndGame();
+		}
 	}
-	else
-	{
-		PrintLine(TEXT("Wrong"));
-	}
+
 
 	//check length
 	//check if isogram
@@ -42,12 +58,24 @@ void UBullCowCartridge::ShowWelcomeMessage()
 
 	PrintLine(TEXT("Hello!"));
 	PrintLine(TEXT("Press Tab to start writing"));
-	PrintLine(TEXT("Guess the 4 letter word")); //TODO magic number
+	PrintLine(TEXT("Guess the %i letter word"), HiddenWord.Len());
 	PrintLine(TEXT("Write your guess and press enter"));
 }
 
-void UBullCowCartridge::InitGame()
+void UBullCowCartridge::SetupGame()
 {
+	bGameOver = false;
 	HiddenWord = TEXT("dupa");
 	Lives = 5;
+
+	ShowWelcomeMessage();
+}
+
+void UBullCowCartridge::EndGame()
+{
+	bGameOver = true;
+
+
+	PrintLine(TEXT("Press Enter to restart"));
+
 }
