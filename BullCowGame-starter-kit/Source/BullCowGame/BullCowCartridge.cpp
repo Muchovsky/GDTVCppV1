@@ -87,11 +87,11 @@ void UBullCowCartridge::ProcessGuess(FString Guess)
 	//Show bulls and cows
 }
 
-bool UBullCowCartridge::IsIsogram(FString Word)
+bool UBullCowCartridge::IsIsogram(FString Word) const
 {
-	for (size_t i = 0; i < Word.Len(); i++)
+	for (int32 i = 0; i < Word.Len(); i++)
 	{
-		for (size_t j = i + 1; j < Word.Len(); j++)
+		for (int32 j = i + 1; j < Word.Len(); j++)
 		{
 			if (Word[i] == Word[j])
 				return false;

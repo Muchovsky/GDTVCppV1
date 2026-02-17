@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Console/Cartridge.h"
 #include "BullCowCartridge.generated.h"
-
+#include "HiddenWordList.h"
 
 
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
@@ -20,7 +20,7 @@ public:
 	void SetupGame();
 	void EndGame(bool bResult);
 	void ProcessGuess(FString Guess);
-	bool IsIsogram(FString Word);
+	 bool IsIsogram(FString Word) const;
 
 	// Your declarations go below!
 private:
