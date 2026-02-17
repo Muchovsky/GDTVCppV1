@@ -20,11 +20,11 @@ public:
 	void SetupGame();
 	void EndGame(bool bResult);
 	void ProcessGuess(FString Guess);
+	bool IsIsogram(FString Word);
 
 	// Your declarations go below!
 private:
 	FString HiddenWord;
 	int32 Lives;
 	bool bGameOver;
-
 };
