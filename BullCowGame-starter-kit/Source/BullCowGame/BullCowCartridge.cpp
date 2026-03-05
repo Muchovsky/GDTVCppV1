@@ -2,17 +2,20 @@
 #include "BullCowCartridge.h"
 
 
+
 void UBullCowCartridge::BeginPlay() // When the game starts
 {
 	Super::BeginPlay();
+	ValidWords = GetValidWords(Words);
 
 	SetupGame();
+	//	PrintLine(TEXT("number of posssible words is  %i"), Words.Num());
+	PrintLine(TEXT("number of valid words is  %i"), ValidWords.Num());
 	//	PrintLine(FString::Printf(TEXT("CHEAT the word is %s and it is %i characters long"), *HiddenWord, HiddenWord.Len()));
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
 {
-	//ClearScreen();
 
 	if (bGameOver)
 	{
@@ -98,4 +101,19 @@ bool UBullCowCartridge::IsIsogram(FString Word) const
 		}
 	}
 	return true;
+}
+
+TArray<FString> UBullCowCartridge::GetValidWords(TArray<FString> WordsArray) const
+{
+	TArray<FString> ValidWords;
+
+	for (int32 i = 0; i < WordsArray.Num(); i++)
+	{
+		if (WordsArray[i].Len() >= 4 && WordsArray[i].Len() <= 8) {
+			if (IsIsogram(WordsArray[i])) {
+				ValidWords.Emplace(WordsArray[i]);
+			}
+		}
+	}
+	return ValidWords;
 }
